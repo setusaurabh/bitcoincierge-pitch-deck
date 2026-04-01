@@ -80,7 +80,7 @@ async function rebuild() {
       try {
         execSync(`"${soffice}" --headless --convert-to pdf --outdir "${OUTPUT_DIR}" "${PPTX_PATH}"`, { stdio: "pipe" });
         fs.readdirSync(SLIDES_DIR).forEach(f => fs.unlinkSync(path.join(SLIDES_DIR, f)));
-        execSync(`"${pdftoppm}" -jpeg -r 130 "${PDF_PATH}" "${path.join(SLIDES_DIR, "slide")}"`, { stdio: "pipe" });
+        execSync(`"${pdftoppm}" -jpeg -r 300 "${PDF_PATH}" "${path.join(SLIDES_DIR, "slide")}"`, { stdio: "pipe" });
         console.log("🖼   Slides rendered.");
       } catch (e) {
         console.warn("⚠️  Conversion failed:", e.message);
