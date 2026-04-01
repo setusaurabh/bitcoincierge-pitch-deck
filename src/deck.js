@@ -267,17 +267,11 @@ function slide01_AudienceQuestion(pres) {
     align: "left", margin: 0,
   });
 
-  // Raise your hand prompt
-  s.addText("🙋  Raise your hand.", {
-    x: 0.6, y: 3.65, w: 8, h: 0.65,
-    fontFace: F.sans, fontSize: 22, bold: true, color: C.orange,
-    align: "left", margin: 0,
-  });
-
-  s.addText("Boy! You've chosen an interesting problem for yourself.", {
-    x: 0.6, y: 4.45, w: 8, h: 0.4,
-    fontFace: F.sans, fontSize: 12, color: C.gray500,
-    align: "left", margin: 0, italic: true,
+  // Large centered raised hand emoji
+  s.addText("🙋", {
+    x: 0.5, y: 3.2, w: 9, h: 1.8,
+    fontFace: F.sans, fontSize: 96,
+    align: "center", valign: "middle", margin: 0,
   });
 }
 
@@ -312,24 +306,17 @@ function slide02_BossBattle(pres) {
     align: "center", margin: 0,
   });
 
-  // Difficulty bar
+  // Difficulty bar — centered
   s.addText("Difficulty Level:", {
-    x: 2.5, y: 3.65, w: 3, h: 0.35,
-    fontFace: F.sans, fontSize: 13, color: C.gray500, align: "right", margin: 0,
+    x: 0.5, y: 3.65, w: 9, h: 0.35,
+    fontFace: F.sans, fontSize: 13, color: C.gray500, align: "center", margin: 0,
   });
-  // Orange filled blocks
-  s.addShape("rect", { x: 5.65, y: 3.72, w: 2.2, h: 0.22, fill: { color: C.orange } });
+  // Orange filled block — centered
+  s.addShape("rect", { x: 3.9, y: 4.1, w: 2.2, h: 0.28, fill: { color: C.orange } });
   s.addText("500%", {
-    x: 5.7, y: 3.72, w: 2.1, h: 0.22,
+    x: 3.9, y: 4.1, w: 2.2, h: 0.28,
     fontFace: F.sans, fontSize: 12, bold: true, color: C.onDark,
     align: "center", valign: "middle", margin: 0,
-  });
-
-  // Subtext
-  s.addText("Customers don't care. Marketing doesn't work. Distribution is broken.", {
-    x: 0.5, y: 4.25, w: 9, h: 0.35,
-    fontFace: F.sans, fontSize: 11, color: C.gray500, italic: true,
-    align: "center", margin: 0,
   });
 }
 
@@ -358,14 +345,9 @@ function slide03_ExBitcoiners(pres) {
   });
 
   // Bottom punchline
-  s.addText("Came for the bull. Clocked out for the bear.", {
+  s.addText("Came for the bull. Went back during the bear.", {
     x: 0.5, y: 4.65, w: 9, h: 0.42,
     fontFace: F.serif, fontSize: 18, italic: true, color: C.onDark,
-    align: "center", margin: 0,
-  });
-  s.addText("Many bitcoiners stop caring in the bear cycle — which we are in.", {
-    x: 0.5, y: 5.1, w: 9, h: 0.28,
-    fontFace: F.sans, fontSize: 10, color: C.gray500,
     align: "center", margin: 0,
   });
 }
@@ -425,22 +407,27 @@ function slide05a_AdsCompliance(pres) {
     align: "center", valign: "middle", margin: 0,
   });
 
-  // Three platform restrictions
+  // Three platform boxes — horizontal layout
   var platforms = [
-    { name: "Google Ads",  note: "Crypto advertising requires certification & ongoing compliance" },
-    { name: "Meta / Instagram", note: "Crypto ads require prior written permission. Often denied." },
-    { name: "Twitter / X", note: "Allowed but requires financial services certification per market" },
+    { logo: "G", logoColor: "4285F4", name: "Google Ads",    note: "Crypto advertising requires certification & ongoing compliance" },
+    { logo: "M", logoColor: "0082FB", name: "Meta / Instagram", note: "Crypto ads require prior written permission. Often denied." },
+    { logo: "𝕏", logoColor: "FFFFFF", name: "Twitter / X",   note: "Allowed but requires financial services certification per market" },
   ];
   platforms.forEach(function(p, i) {
-    var py = 3.12 + i * 0.55;
-    s.addShape("rect", { x: 0.5, y: py, w: 9.0, h: 0.45,
-      fill: { color: C.darkPanel }, line: { color: C.separator, width: 0.5 } });
-    s.addText("✕", { x: 0.65, y: py + 0.07, w: 0.3, h: 0.3,
-      fontFace: F.sans, fontSize: 12, bold: true, color: C.red, margin: 0 });
-    s.addText(p.name, { x: 1.05, y: py + 0.07, w: 2.5, h: 0.3,
-      fontFace: F.sans, fontSize: 10, bold: true, color: C.onDark, margin: 0 });
-    s.addText(p.note, { x: 3.7, y: py + 0.07, w: 5.7, h: 0.3,
-      fontFace: F.sans, fontSize: 9.5, color: C.gray500, margin: 0 });
+    var px = 0.4 + i * 3.1;
+    s.addShape("rect", { x: px, y: 3.0, w: 2.95, h: 2.3,
+      fill: { color: C.panelDk }, line: { color: C.panelBorder, width: 1 } });
+    s.addShape("rect", { x: px, y: 3.0, w: 2.95, h: 0.055,
+      fill: { color: C.red } });
+    s.addText(p.logo, { x: px + 0.15, y: 3.1, w: 2.65, h: 0.9,
+      fontFace: F.serif, fontSize: 42, bold: true, color: p.logoColor,
+      align: "center", valign: "middle", margin: 0 });
+    s.addText(p.name, { x: px + 0.15, y: 4.05, w: 2.65, h: 0.35,
+      fontFace: F.sans, fontSize: 11, bold: true, color: C.onDark,
+      align: "center", margin: 0 });
+    s.addText(p.note, { x: px + 0.15, y: 4.45, w: 2.65, h: 0.7,
+      fontFace: F.sans, fontSize: 8.5, color: C.gray500,
+      align: "center", margin: 0 });
   });
 }
 
@@ -459,11 +446,11 @@ function slide05b_SocialFatigue(pres) {
     align: "center", margin: 0,
   });
 
-  // Three problems as big dark cards
+  // Three problems as big dark cards — bigger emoji, no subtext
   var problems = [
-    { emoji: "📉", big: "High CAC", sub: "Cost per Bitcoin-curious user is 3–5× a regular fintech customer — a niche audience in a restricted channel." },
-    { emoji: "🤖", big: "AI Slop", sub: "Feeds are flooded with AI-generated content. Organic reach is dying. Your post disappears in seconds." },
-    { emoji: "😮‍💨", big: "Fatigue", sub: "People have learned to scroll past anything that looks like marketing. Especially in crypto." },
+    { emoji: "🫥", big: "Shadow Banning" },
+    { emoji: "🤖", big: "AI Slop" },
+    { emoji: "😮‍💨", big: "Social Media Fatigue" },
   ];
   problems.forEach(function(p, i) {
     var px = 0.4 + i * 3.1;
@@ -471,12 +458,11 @@ function slide05b_SocialFatigue(pres) {
       fill: { color: C.panelDk }, line: { color: C.panelBorder, width: 1 } });
     s.addShape("rect", { x: px, y: 1.45, w: 2.95, h: 0.055,
       fill: { color: C.red } });
-    s.addText(p.emoji, { x: px + 0.2, y: 1.65, w: 0.7, h: 0.7,
-      fontFace: F.sans, fontSize: 28, margin: 0 });
-    s.addText(p.big, { x: px + 0.2, y: 2.45, w: 2.6, h: 0.5,
-      fontFace: F.sans, fontSize: 18, bold: true, color: C.onDark, margin: 0 });
-    s.addText(p.sub, { x: px + 0.2, y: 3.0, w: 2.6, h: 1.8,
-      fontFace: F.sans, fontSize: 9.5, color: C.gray500, margin: 0 });
+    s.addText(p.emoji, { x: px + 0.15, y: 1.6, w: 2.65, h: 1.4,
+      fontFace: F.sans, fontSize: 60, align: "center", valign: "middle", margin: 0 });
+    s.addText(p.big, { x: px + 0.1, y: 3.15, w: 2.75, h: 0.9,
+      fontFace: F.sans, fontSize: 22, bold: true, color: C.onDark,
+      align: "center", valign: "middle", margin: 0 });
   });
 }
 
@@ -500,9 +486,9 @@ function slide05c_Conferences(pres) {
     {
       icon: "🎙️",
       head: "Bitcoin Conference",
-      price: "$250,000+",
-      priceLabel: "to sponsor the mainstage",
-      who: "Bitcoin Nashville 2025",
+      price: "10,000+",
+      priceLabel: "to sponsor a booth/stall",
+      who: "Bitcoin Prague 2026",
       note: "For Coinbase. Not for your seed-stage startup.",
     },
     {
@@ -570,18 +556,18 @@ function slide06_CurrentWorkarounds(pres) {
   pairs.forEach(function(p, i) {
     var cx = 0.4 + i * 3.2;
     // Card
-    s.addShape("rect", { x: cx, y: 1.8, w: 3.0, h: 3.45,
+    s.addShape("rect", { x: cx, y: 1.8, w: 3.0, h: 2.8,
       fill: { color: C.white }, line: { color: "E5E7EB", width: 0.75 },
       shadow: makeShadow() });
     s.addShape("rect", { x: cx, y: 1.8, w: 3.0, h: 0.055,
       fill: { color: C.orange } });
 
-    // Community logo
+    // Community logo — centered
     s.addImage({ data: p.commLogo,
       x: cx + 0.85, y: 1.95, w: 1.3, h: 1.3,
       sizing: { type: "contain", w: 1.3, h: 1.3 } });
 
-    // Community name
+    // Community name — centered
     s.addText(p.commName, { x: cx + 0.15, y: 3.3, w: 2.7, h: 0.35,
       fontFace: F.sans, fontSize: 10.5, bold: true, color: C.gray900,
       align: "center", margin: 0 });
@@ -591,15 +577,10 @@ function slide06_CurrentWorkarounds(pres) {
       fontFace: F.sans, fontSize: 9, color: C.orange,
       align: "center", margin: 0 });
 
-    // Brand name
-    s.addText(p.brand, { x: cx + 0.15, y: 4.02, w: 2.7, h: 0.35,
+    // Brand name — centered
+    s.addText(p.brand, { x: cx + 0.15, y: 4.05, w: 2.7, h: 0.4,
       fontFace: F.sans, fontSize: 12, bold: true, color: C.orange,
       align: "center", margin: 0 });
-
-    // Logic
-    s.addText(p.logic, { x: cx + 0.15, y: 4.42, w: 2.7, h: 0.7,
-      fontFace: F.sans, fontSize: 8, color: C.gray500,
-      align: "left", margin: 0 });
   });
 
   addLightFooter(s);
@@ -628,18 +609,17 @@ function slide07_Limitations(pres) {
     if (i === 4) { col = 0; row = 2; } // last item centered
     var ix = i === 4 ? 0.5 : (0.5 + col * 4.78);
     var iw = i === 4 ? 9.0 : 4.55;
-    var iy = 1.85 + row * 1.15;
-    s.addShape("rect", { x: ix, y: iy, w: iw, h: 1.0,
+    var iy = 1.85 + row * 1.05;
+    s.addShape("rect", { x: ix, y: iy, w: iw, h: 0.78,
       fill: { color: C.white }, line: { color: "E5E7EB", width: 0.75 },
       shadow: makeShadow() });
-    s.addShape("rect", { x: ix, y: iy, w: 0.055, h: 1.0,
+    s.addShape("rect", { x: ix, y: iy, w: 0.055, h: 0.78,
       fill: { color: C.orange } });
-    s.addText(item.emoji, { x: ix + 0.18, y: iy + 0.15, w: 0.5, h: 0.5,
-      fontFace: F.sans, fontSize: 18, margin: 0 });
-    s.addText(item.head, { x: ix + 0.78, y: iy + 0.1, w: iw - 1.0, h: 0.35,
-      fontFace: F.sans, fontSize: 10.5, bold: true, color: C.gray900, margin: 0 });
-    s.addText(item.body, { x: ix + 0.78, y: iy + 0.48, w: iw - 1.0, h: 0.42,
-      fontFace: F.sans, fontSize: 9, color: C.gray500, margin: 0 });
+    s.addText(item.emoji, { x: ix + 0.18, y: iy + 0.12, w: 0.5, h: 0.5,
+      fontFace: F.sans, fontSize: 22, margin: 0 });
+    s.addText(item.head, { x: ix + 0.78, y: iy + 0.18, w: iw - 1.0, h: 0.42,
+      fontFace: F.sans, fontSize: 11.5, bold: true, color: C.gray900,
+      valign: "middle", margin: 0 });
   });
 
   addLightFooter(s);
@@ -680,23 +660,22 @@ function slide08_ProblemStatement(pres) {
 // ─────────────────────────────────────────────────────────────────────────────
 function slide09_Cover(pres) {
   var s = pres.addSlide();
-  s.background = { color: C.black };
+  s.background = { color: C.cream };
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
-  s.addShape("rect", { x: 7.4, y: 0.07, w: 2.6, h: 5.2, fill: { color: C.darkPanel } });
   s.addText("Bitcoincierge", {
-    x: 0.5, y: 0.7, w: 7.0, h: 1.2,
-    fontFace: F.serif, fontSize: 68, italic: true, color: C.onDark, align: "left", margin: 0,
+    x: 0.5, y: 0.7, w: 9, h: 1.2,
+    fontFace: F.serif, fontSize: 68, italic: true, color: C.gray900, align: "left", margin: 0,
   });
   s.addShape("rect", { x: 0.5, y: 1.85, w: 2.5, h: 0.055, fill: { color: C.orange } });
   s.addText("IRL Event and Community Management.\nFor Bitcoin brands. In India.", {
-    x: 0.5, y: 2.05, w: 6.7, h: 0.9,
-    fontFace: F.sans, fontSize: 18, color: C.onDark, align: "left", margin: 0,
+    x: 0.5, y: 2.05, w: 8.8, h: 0.9,
+    fontFace: F.sans, fontSize: 18, color: C.gray900, align: "left", margin: 0,
   });
   s.addText("D e m o s .   W o r k s h o p s .   M e e t u p s .", {
-    x: 0.5, y: 3.15, w: 6.5, h: 0.4,
+    x: 0.5, y: 3.15, w: 8.8, h: 0.4,
     fontFace: F.sans, fontSize: 11.5, bold: true, color: C.orange, align: "left", margin: 0,
   });
-  s.addShape("rect", { x: 0, y: 5.2, w: 10, h: 0.43, fill: { color: C.black } });
+  s.addShape("rect", { x: 0, y: 5.2, w: 10, h: 0.43, fill: { color: C.cream } });
   s.addText("SofB Accelerator Pitch", {
     x: 0.5, y: 5.22, w: 6, h: 0.3,
     fontFace: F.sans, fontSize: 9, color: C.gray500, align: "left", margin: 0,
@@ -716,30 +695,21 @@ function slide10_Solution(pres) {
   addLabel(s, "O u r   S o l u t i o n");
   addHeadline(s, "IRL event & community management\nas a service — for Bitcoin brands.", { y: 0.55, h: 1.18, size: 30 });
 
-  // Orange banner
-  s.addShape("rect", { x: 0.5, y: 1.92, w: 9.0, h: 0.72, fill: { color: C.orange } });
-  s.addText("Plug in on Day 1. Demo, acquire, and activate users — without building a team, traveling, or starting a community from zero.", {
-    x: 0.7, y: 1.95, w: 8.6, h: 0.66,
-    fontFace: F.serif, fontSize: 12.5, italic: true, color: C.onDark,
-    align: "center", valign: "middle", margin: 0,
-  });
-
   var features = [
-    { emoji: "📍", head: "Venue & Logistics",   body: "We handle booking, setup, and operations across 7 cities" },
-    { emoji: "👥", head: "Curated Audience",    body: "Pre-qualified participants from our community — not a random crowd" },
-    { emoji: "🎤", head: "Expert Mentors",      body: "Bitcoin-native coaches, hand-picked or approved by you" },
-    { emoji: "📊", head: "Attribution Reports", body: "Post-event summary: attendance, demos, leads generated" },
+    { emoji: "📍", head: "Venue & Logistics" },
+    { emoji: "👥", head: "Curated Audience" },
+    { emoji: "🎤", head: "Expert Mentors" },
+    { emoji: "📊", head: "Attribution Reports" },
   ];
   features.forEach(function(f, i) {
     var fx = 0.5 + i * 2.28;
-    s.addShape("rect", { x: fx, y: 2.85, w: 2.15, h: 2.3,
+    s.addShape("rect", { x: fx, y: 1.85, w: 2.15, h: 3.0,
       fill: { color: C.white }, line: { color: "E5E7EB", width: 0.75 }, shadow: makeShadow() });
-    s.addText(f.emoji, { x: fx + 0.18, y: 3.0, w: 0.55, h: 0.55,
-      fontFace: F.sans, fontSize: 22, margin: 0 });
-    s.addText(f.head, { x: fx + 0.18, y: 3.65, w: 1.82, h: 0.42,
-      fontFace: F.sans, fontSize: 10, bold: true, color: C.gray900, margin: 0 });
-    s.addText(f.body, { x: fx + 0.18, y: 4.15, w: 1.82, h: 0.88,
-      fontFace: F.sans, fontSize: 9, color: C.gray500, margin: 0 });
+    s.addText(f.emoji, { x: fx + 0.1, y: 2.1, w: 1.95, h: 1.2,
+      fontFace: F.sans, fontSize: 52, align: "center", valign: "middle", margin: 0 });
+    s.addText(f.head, { x: fx + 0.1, y: 3.45, w: 1.95, h: 0.8,
+      fontFace: F.sans, fontSize: 12, bold: true, color: C.gray900,
+      align: "center", valign: "middle", margin: 0 });
   });
   addLightFooter(s);
 }
@@ -927,15 +897,15 @@ function slide15_GTM(pres) {
   ];
   steps.forEach(function(st, i) {
     var sx = 0.38 + i * 1.85;
-    s.addShape("rect", { x: sx, y: 1.5, w: 1.72, h: 3.72,
+    s.addShape("rect", { x: sx, y: 1.5, w: 1.72, h: 3.0,
       fill: { color: C.white }, line: { color: "E5E7EB", width: 0.75 }, shadow: makeShadow() });
     s.addShape("rect", { x: sx, y: 1.5, w: 1.72, h: 0.055, fill: { color: C.orange } });
-    s.addText(st.num, { x: sx + 0.15, y: 1.65, w: 1.4, h: 0.45,
-      fontFace: F.sans, fontSize: 18, bold: true, color: C.gray900, margin: 0 });
-    s.addText(st.head, { x: sx + 0.15, y: 2.2, w: 1.42, h: 0.65,
-      fontFace: F.sans, fontSize: 9.5, bold: true, color: C.gray900, margin: 0 });
-    s.addText(st.body, { x: sx + 0.15, y: 2.95, w: 1.42, h: 2.1,
-      fontFace: F.sans, fontSize: 8.5, color: C.gray500, margin: 0 });
+    s.addText(st.num, { x: sx + 0.1, y: 1.65, w: 1.52, h: 0.55,
+      fontFace: F.sans, fontSize: 22, bold: true, color: C.gray900,
+      align: "center", margin: 0 });
+    s.addText(st.head, { x: sx + 0.1, y: 2.3, w: 1.52, h: 1.9,
+      fontFace: F.sans, fontSize: 9.5, bold: true, color: C.gray900,
+      align: "center", margin: 0 });
   });
   addLightFooter(s);
 }
@@ -1151,29 +1121,29 @@ async function buildDeck(outputPath) {
   slide05c_Conferences(pres);
   slide06_CurrentWorkarounds(pres);
   slide07_Limitations(pres);
-  slide08_ProblemStatement(pres);
+  // slide08_ProblemStatement — hidden (slide 10)
   slide09_Cover(pres);
   slide10_Solution(pres);
-  slide11_WhyNow(pres);
+  // slide11_WhyNow — hidden (slide 13)
   slide12_IndiaMap(pres);
   slide13_AIFatigue(pres);
   slide14_MarketTraction(pres);
   slide15_GTM(pres);
   slide16_BusinessModel(pres);
-  slide17_ProofOfWork(pres);
+  // slide17_ProofOfWork — hidden (slide 19)
 
   const companies = [
     { name: "Getbit",    nowText: "Bitcoin-only exchange from India. 200+ attendees across meetups powered by Bitcoincierge." },
     { name: "Zebpay",    nowText: "India's leading crypto exchange. Hosted meetups across Mumbai and Delhi, reaching hundreds of attendees." },
     { name: "Jetking",   nowText: "Reached thousands through in-person meetups and online streams, spreading their Bitcoin treasury story to potential investors." },
     { name: "Ourpool",   nowText: "3 meetups across Bangalore, Mumbai, and Delhi. Partners and ecosystem providers onboarded to their Bitcoin Mining Academy in Goa, culminating in a paid 30+ attendee cohort." },
-    { name: "Bitasha",   nowText: "Piloted hardware meetups for beta testing. Sold 50+ BitAxe units through meetup and event activations alone." },
+    { name: "Bitasha",   nowText: "Piloted first meetup, sold 5+ BitAxe through Delhi meetup and warmed attendees to visit them at Bitplebs." },
     { name: "Cryobrick", nowText: "First user activation through meetups in Goa. Onboarded senior Bitcoiners as beta testers for v1 of the app." },
   ];
   companies.forEach(function(c) { slide_CompanyProfile(pres, c); });
 
   slide18_Ask(pres);
-  slide19_QandA(pres);
+  // slide19_QandA — hidden (slide 27)
 
   await pres.writeFile({ fileName: outFile });
   console.log("Saved: " + outFile);
