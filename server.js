@@ -291,7 +291,7 @@ const COMPANY_DATA = [
   { name: "Zebpay", storyTexts: ["India's leading crypto exchange.","Hosted meetups across Mumbai and Delhi.","Reaching hundreds of attendees."], images: ["/website-assets/images/zebpay/zebpay-1.jpeg", "/website-assets/images/zebpay/zebpay-2.jpeg", "/website-assets/images/zebpay/zebpay-3.jpeg"] },
   { name: "Jetking", storyTexts: ["Reached thousands through in-person meetups and online streams.","Spreading their Bitcoin treasury story to potential investors."], images: ["/website-assets/images/jetking/jetking-1.jpeg", "/website-assets/images/jetking/jetking-2.jpeg"] },
   { name: "Ourpool", storyTexts: ["3 meetups across Bangalore, Mumbai, and Delhi.","Partners onboarded to their Bitcoin Mining Academy.","Paid 30+ attendee mining cohort in Goa."], images: ["/website-assets/images/ourpool/ourpool-1.jpeg", "/website-assets/images/ourpool/ourpool-2.jpeg", "/website-assets/images/ourpool/ourpool-3.jpeg"] },
-  { name: "Bitasha", storyTexts: ["Sold 50+ BitAxe units through meetup and event activations alone."], images: ["/website-assets/images/bitasha1.jpeg", "/website-assets/images/bitasha2.jpeg"] },
+  { name: "Bitasha", storyTexts: ["Sold 50+ BitAxe units through meetup and event activations alone.", "Join us at our next workshop in Delhi."], images: ["/website-assets/images/bitasha/bitasha-1.jpeg", "/website-assets/images/bitasha/bitasha-2.jpeg"] },
   { name: "Cryobrick", storyTexts: ["First user activation through meetups in Goa.","Senior Bitcoiners onboarded as beta testers for v1 of the app."], images: ["/website-assets/images/cryobrick/cryobrick-1.jpeg", "/website-assets/images/cryobrick/cryobrick-2.jpeg"] }
 ];
 
