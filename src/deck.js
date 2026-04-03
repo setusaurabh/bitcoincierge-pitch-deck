@@ -389,45 +389,34 @@ function slide05a_AdsCompliance(pres) {
   var s = pres.addSlide();
   s.background = { color: C.black };
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
-  addLabel(s, "M A R K E T I N G   C H A N N E L   1   /   3");
+  addLabel(s, "P A I D   M A R K E T I N G   P R O B L E M");
 
-  // Big label: "RUN ADS?"
-  s.addText("Want to run Bitcoin ads?", {
-    x: 0.5, y: 0.55, w: 9, h: 0.65,
+  s.addText("Social Media Giants don't love Bitcoin", {
+    x: 0.5, y: 0.45, w: 9, h: 0.75,
     fontFace: F.serif, fontSize: 32, italic: true, color: C.onDark,
     align: "center", margin: 0,
   });
 
-  // Giant REJECTED in red
-  s.addShape("rect", { x: 1.8, y: 1.35, w: 6.4, h: 1.55,
-    fill: { color: C.panelDk }, line: { color: C.red, width: 5 } });
-  s.addText("REJECTED.", {
-    x: 1.8, y: 1.35, w: 6.4, h: 1.55,
-    fontFace: F.serif, fontSize: 72, bold: true, color: C.red,
-    align: "center", valign: "middle", margin: 0,
-  });
-
-  // Three platform boxes — horizontal layout
+  // Three platform logos — no boxes, image + name + note
+  var PROC = path.join(__dirname, "..", "assets", "processed");
   var platforms = [
-    { logo: "G", logoColor: "4285F4", name: "Google Ads",    note: "Crypto advertising requires certification & ongoing compliance" },
-    { logo: "M", logoColor: "0082FB", name: "Meta / Instagram", note: "Crypto ads require prior written permission. Often denied." },
-    { logo: "𝕏", logoColor: "FFFFFF", name: "Twitter / X",   note: "Allowed but requires financial services certification per market" },
+    { img: path.join(PROC, "google.png"),  name: "Google",         note: "Requires certification and compliance" },
+    { img: path.join(PROC, "meta.png"),    name: "Meta / Facebook", note: "Requires prior permission. Often denied." },
+    { img: path.join(PROC, "x_logo.png"),  name: "Twitter / X",    note: "Requires certification." },
   ];
   platforms.forEach(function(p, i) {
-    var px = 0.4 + i * 3.1;
-    s.addShape("rect", { x: px, y: 3.0, w: 2.95, h: 2.3,
-      fill: { color: C.panelDk }, line: { color: C.panelBorder, width: 1 } });
-    s.addShape("rect", { x: px, y: 3.0, w: 2.95, h: 0.055,
-      fill: { color: C.red } });
-    s.addText(p.logo, { x: px + 0.15, y: 3.1, w: 2.65, h: 0.9,
-      fontFace: F.serif, fontSize: 42, bold: true, color: p.logoColor,
-      align: "center", valign: "middle", margin: 0 });
-    s.addText(p.name, { x: px + 0.15, y: 4.05, w: 2.65, h: 0.35,
-      fontFace: F.sans, fontSize: 11, bold: true, color: C.onDark,
-      align: "center", margin: 0 });
-    s.addText(p.note, { x: px + 0.15, y: 4.45, w: 2.65, h: 0.7,
-      fontFace: F.sans, fontSize: 8.5, color: C.gray500,
-      align: "center", margin: 0 });
+    var px = 0.55 + i * 3.1;
+    s.addImage({ path: p.img, x: px + 0.55, y: 1.55, w: 1.6, h: 1.6 });
+    s.addText(p.name, {
+      x: px, y: 3.3, w: 2.7, h: 0.38,
+      fontFace: F.sans, fontSize: 13, bold: true, color: C.onDark,
+      align: "center", margin: 0,
+    });
+    s.addText(p.note, {
+      x: px, y: 3.72, w: 2.7, h: 0.65,
+      fontFace: F.sans, fontSize: 10, color: C.gray500,
+      align: "center", margin: 0,
+    });
   });
 }
 
@@ -438,32 +427,23 @@ function slide05b_SocialFatigue(pres) {
   var s = pres.addSlide();
   s.background = { color: C.black };
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
-  addLabel(s, "M A R K E T I N G   C H A N N E L   2   /   3");
+  addLabel(s, "O R G A N I C   M A R K E T I N G   P R O B L E M");
 
-  s.addText("Go organic? 📱", {
-    x: 0.5, y: 0.52, w: 9, h: 0.7,
+  s.addText("AI is the new kool kid", {
+    x: 0.5, y: 0.45, w: 9, h: 0.75,
     fontFace: F.serif, fontSize: 36, italic: true, color: C.onDark,
     align: "center", margin: 0,
   });
 
-  // Three problems as big dark cards — bigger emoji, no subtext
-  var problems = [
-    { emoji: "🫥", big: "Shadow Banning" },
-    { emoji: "🤖", big: "AI Slop" },
-    { emoji: "😮‍💨", big: "Social Media Fatigue" },
-  ];
-  problems.forEach(function(p, i) {
-    var px = 0.4 + i * 3.1;
-    s.addShape("rect", { x: px, y: 1.45, w: 2.95, h: 3.5,
-      fill: { color: C.panelDk }, line: { color: C.panelBorder, width: 1 } });
-    s.addShape("rect", { x: px, y: 1.45, w: 2.95, h: 0.055,
-      fill: { color: C.red } });
-    s.addText(p.emoji, { x: px + 0.15, y: 1.6, w: 2.65, h: 1.4,
-      fontFace: F.sans, fontSize: 60, align: "center", valign: "middle", margin: 0 });
-    s.addText(p.big, { x: px + 0.1, y: 3.15, w: 2.75, h: 0.9,
-      fontFace: F.sans, fontSize: 22, bold: true, color: C.onDark,
-      align: "center", valign: "middle", margin: 0 });
+  // AI image > Bitcoin smiley image — centered
+  var PROC = path.join(__dirname, "..", "assets", "processed");
+  s.addImage({ path: path.join(PROC, "ai_robot.png"),      x: 1.2, y: 1.5, w: 2.8, h: 2.8 });
+  s.addText(">", {
+    x: 4.0, y: 1.6, w: 2.0, h: 2.5,
+    fontFace: F.serif, fontSize: 80, bold: true, color: C.gray500,
+    align: "center", valign: "middle", margin: 0,
   });
+  s.addImage({ path: path.join(PROC, "bitcoin_smiley.png"), x: 6.0, y: 1.5, w: 2.8, h: 2.8 });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -473,9 +453,9 @@ function slide05c_Conferences(pres) {
   var s = pres.addSlide();
   s.background = { color: C.black };
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
-  addLabel(s, "M A R K E T I N G   C H A N N E L   3   /   3");
+  addLabel(s, "C U R R E N T   W O R K A R O U N D S");
 
-  s.addText("Pay to play? 💸", {
+  s.addText("Big brands have figured 💸", {
     x: 0.5, y: 0.52, w: 9, h: 0.7,
     fontFace: F.serif, fontSize: 36, italic: true, color: C.onDark,
     align: "center", margin: 0,
@@ -489,15 +469,15 @@ function slide05c_Conferences(pres) {
       price: "10,000+",
       priceLabel: "to sponsor a booth/stall",
       who: "Bitcoin Prague 2026",
-      note: "For Coinbase. Not for your seed-stage startup.",
+      note: "May not be for many of us!",
     },
     {
       icon: "🌟",
       head: "Bitcoin Influencer",
       price: "₹5L – ₹25L",
       priceLabel: "per campaign, per creator",
-      who: "Top 10 Indian Bitcoin creators",
-      note: "No guaranteed conversion. No attribution. No retargeting.",
+      who: "Top 10 Indian creators",
+      note: "No assured conversion, or attribution.",
     },
   ];
   opts.forEach(function(o, i) {
@@ -530,7 +510,7 @@ function slide06_CurrentWorkarounds(pres) {
   var s = pres.addSlide();
   s.background = { color: C.cream };
   addLabel(s, "C U R R E N T   W O R K A R O U N D S");
-  addHeadline(s, "Smart founders already\nfigured it out.", { y: 0.52, h: 1.1, size: 30 });
+  addHeadline(s, "Smart founders are figuring", { y: 0.52, h: 1.1, size: 30 });
 
   var pairs = [
     {
@@ -592,8 +572,8 @@ function slide06_CurrentWorkarounds(pres) {
 function slide07_Limitations(pres) {
   var s = pres.addSlide();
   s.background = { color: C.cream };
-  addLabel(s, "B U T   T H I S   M O D E L   H A S   P R O B L E M S");
-  addHeadline(s, "Building your own community\nbreaks at scale.", { y: 0.52, h: 1.1, size: 30 });
+  addLabel(s, "T H E   B I G   P R O B L E M");
+  addHeadline(s, "Checkl before you'd want to go this route!", { y: 0.52, h: 1.1, size: 30 });
 
   var items = [
     { emoji: "🧠", head: "Org time & energy", body: "Organising meetups, community management, 1-on-1 guidance, customer education — all diverts from building the product." },
@@ -1116,8 +1096,8 @@ async function buildDeck(outputPath) {
   slide02_BossBattle(pres);
   slide03_ExBitcoiners(pres);
   slide04_Normies(pres);
-  slide05a_AdsCompliance(pres);
   slide05b_SocialFatigue(pres);
+  slide05a_AdsCompliance(pres);
   slide05c_Conferences(pres);
   slide06_CurrentWorkarounds(pres);
   slide07_Limitations(pres);
