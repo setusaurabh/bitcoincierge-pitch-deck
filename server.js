@@ -328,6 +328,14 @@ const COMPANY_DATA = [
   { name: "Cryobrick", storyTexts: ["First user activation through meetups in Goa.","Senior Bitcoiners onboarded as beta testers for v1 of the app."], images: ["/website-assets/images/cryobrick/cryobrick-1.jpeg", "/website-assets/images/cryobrick/cryobrick-2.jpeg"] }
 ];
 
+// Preload carousel images so they appear instantly
+COMPANY_DATA.forEach(c => {
+  c.images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+});
+
 let presIndex = 0;
 let presSlides = [];
 let intraSlideIndex = 0;
