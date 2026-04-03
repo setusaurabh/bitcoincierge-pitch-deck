@@ -5,25 +5,25 @@
  * Edit src/deck.js → browser auto-refreshes
  * Theme picker in the header → rebuilds with new palette
  */
-const express   = require("express");
-const http      = require("http");
+const express = require("express");
+const http = require("http");
 const WebSocket = require("ws");
-const chokidar  = require("chokidar");
-const path      = require("path");
-const fs        = require("fs");
+const chokidar = require("chokidar");
+const path = require("path");
+const fs = require("fs");
 const { execSync } = require("child_process");
 const { buildDeck, THEMES } = require("./src/deck.js");
 
-const app    = express();
+const app = express();
 const server = http.createServer(app);
-const wss    = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server });
 app.use(express.json());
 
-const PORT       = 3333;
+const PORT = 3333;
 const OUTPUT_DIR = path.join(__dirname, "output");
 const SLIDES_DIR = path.join(__dirname, "output", "slides");
-const PPTX_PATH  = path.join(OUTPUT_DIR, "bitcoincierge_pitch_deck.pptx");
-const PDF_PATH   = path.join(OUTPUT_DIR, "bitcoincierge_pitch_deck.pdf");
+const PPTX_PATH = path.join(OUTPUT_DIR, "bitcoincierge_pitch_deck.pptx");
+const PDF_PATH = path.join(OUTPUT_DIR, "bitcoincierge_pitch_deck.pdf");
 const THEME_PATH = path.join(__dirname, "theme.json");
 
 fs.mkdirSync(SLIDES_DIR, { recursive: true });
@@ -39,7 +39,9 @@ function getActiveTheme() {
 }
 
 function broadcast(msg) {
-  wss.clients.forEach(c => { if (c.readyState === WebSocket.OPEN) c.send(JSON.stringify(msg)); });
+  wss.clients.forEach((c) => {
+    if (c.readyState === WebSocket.OPEN) c.send(JSON.stringify(msg));
+  });
 }
 
 function getBinaryPath(name, fallbackPaths = []) {
@@ -62,52 +64,75 @@ async function rebuild() {
   console.log("\n🔨  Rebuilding deck...");
   try {
     // Re-require deck.js fresh so theme changes take effect
-    Object.keys(require.cache).forEach(k => { if (k.includes("deck.js") || k.includes("theme.json")) delete require.cache[k]; });
+    Object.keys(require.cache).forEach((k) => {
+      if (k.includes("deck.js") || k.includes("theme.json"))
+        delete require.cache[k];
+    });
     const { buildDeck: bd } = require("./src/deck.js");
     await bd(PPTX_PATH);
 
     const soffice = getBinaryPath("soffice", [
       "/Applications/LibreOffice.app/Contents/MacOS/soffice",
       "/opt/homebrew/bin/soffice",
-      "/usr/local/bin/soffice"
+      "/usr/local/bin/soffice",
     ]);
     const pdftoppm = getBinaryPath("pdftoppm", [
       "/opt/homebrew/bin/pdftoppm",
-      "/usr/local/bin/pdftoppm"
+      "/usr/local/bin/pdftoppm",
     ]);
 
     if (soffice && pdftoppm) {
       try {
-        execSync(`"${soffice}" --headless --convert-to pdf --outdir "${OUTPUT_DIR}" "${PPTX_PATH}"`, { stdio: "pipe" });
-        fs.readdirSync(SLIDES_DIR).forEach(f => fs.unlinkSync(path.join(SLIDES_DIR, f)));
-        execSync(`"${pdftoppm}" -jpeg -r 300 "${PDF_PATH}" "${path.join(SLIDES_DIR, "slide")}"`, { stdio: "pipe" });
+        execSync(
+          `"${soffice}" --headless --convert-to pdf --outdir "${OUTPUT_DIR}" "${PPTX_PATH}"`,
+          { stdio: "pipe" },
+        );
+        fs.readdirSync(SLIDES_DIR).forEach((f) =>
+          fs.unlinkSync(path.join(SLIDES_DIR, f)),
+        );
+        execSync(
+          `"${pdftoppm}" -jpeg -r 300 "${PDF_PATH}" "${path.join(SLIDES_DIR, "slide")}"`,
+          { stdio: "pipe" },
+        );
         console.log("🖼   Slides rendered.");
       } catch (e) {
         console.warn("⚠️  Conversion failed:", e.message);
       }
     } else {
-      console.warn("⚠️  LibreOffice/pdftoppm not found — install for visual preview.");
+      console.warn(
+        "⚠️  LibreOffice/pdftoppm not found — install for visual preview.",
+      );
     }
     broadcast({ type: "done", theme: getActiveTheme() });
     console.log("✅  Ready at http://localhost:" + PORT + "\n");
   } catch (err) {
     console.error("❌  Build error:", err.message);
     broadcast({ type: "error", message: err.message });
-  } finally { building = false; }
+  } finally {
+    building = false;
+  }
 }
 
-chokidar.watch(path.join(__dirname, "src", "deck.js"), { ignoreInitial: false })
-  .on("change", () => { console.log("📄  deck.js changed — rebuilding..."); rebuild(); })
+chokidar
+  .watch(path.join(__dirname, "src", "deck.js"), { ignoreInitial: false })
+  .on("change", () => {
+    console.log("📄  deck.js changed — rebuilding...");
+    rebuild();
+  })
   .on("add", () => rebuild());
 
 app.use("/slides", express.static(SLIDES_DIR));
 app.use("/output", express.static(OUTPUT_DIR));
-app.use("/website-assets", express.static(path.join(__dirname, "assets", "website-assets")));
+app.use(
+  "/website-assets",
+  express.static(path.join(__dirname, "assets", "website-assets")),
+);
 
 // ── Theme switcher API ────────────────────────────────────────────────────────
 app.post("/set-theme", (req, res) => {
   const { theme } = req.body || {};
-  if (!theme || !THEMES[theme]) return res.status(400).json({ error: "Unknown theme" });
+  if (!theme || !THEMES[theme])
+    return res.status(400).json({ error: "Unknown theme" });
   fs.writeFileSync(THEME_PATH, JSON.stringify({ theme }, null, 2));
   console.log(`🎨  Theme switched to: ${THEMES[theme].name}`);
   rebuild();
@@ -121,10 +146,18 @@ app.get("/themes", (req, res) => {
 // ── Main page ─────────────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
   const slides = fs.existsSync(SLIDES_DIR)
-    ? fs.readdirSync(SLIDES_DIR).filter(f => f.endsWith(".jpg") || f.endsWith(".png")).sort()
+    ? fs
+        .readdirSync(SLIDES_DIR)
+        .filter((f) => f.endsWith(".jpg") || f.endsWith(".png"))
+        .sort()
     : [];
   const slideHTML = slides.length
-    ? slides.map((f, i) => `<div class="slide-wrap" id="s${i+1}"><div class="num">${i+1}/${slides.length}</div><img src="/slides/${f}" loading="lazy" /></div>`).join("")
+    ? slides
+        .map(
+          (f, i) =>
+            `<div class="slide-wrap" id="s${i + 1}"><div class="num">${i + 1}/${slides.length}</div><img src="/slides/${f}" loading="lazy" /></div>`,
+        )
+        .join("")
     : `<div class="empty"><p>⏳ Building slides…</p></div>`;
 
   const activeTheme = getActiveTheme();
@@ -251,7 +284,7 @@ body{background:#111;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',san
     </div>
   </div>
   <div id="hero-overlay" style="display:none;position:absolute;inset:0;background:#000;z-index:9500;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;">
-    <video id="hero-video" muted loop playsinline poster="/website-assets/images/defaultMentor.webp" src="/website-assets/Hero.mp4" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:blur(3px) brightness(0.6);transform:scale(1.1);"></video>
+    <video id="hero-video" muted loop playsinline poster="/website-assets/images/defaultMentor.webp" src="/website-assets/Hero.mp4" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:blur(14px) brightness(0.35);transform:scale(1.15);"></video>
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.2);z-index:1;"></div>
     
     <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;height:100%;padding:0 8%;gap:40px;">
@@ -298,7 +331,6 @@ const COMPANY_DATA = [
 let presIndex = 0;
 let presSlides = [];
 let intraSlideIndex = 0;
-let carouselInterval;
 
 function updateCarousel() {
   const cData = COMPANY_DATA[presIndex - 16];
@@ -319,32 +351,12 @@ function updateCarousel() {
     const fill = document.createElement("div");
     fill.style.height = "100%";
     fill.style.background = "#fff";
-    if (i < intraSlideIndex) fill.style.width = "100%";
-    else if (i === intraSlideIndex) {
-      fill.style.width = "0%";
-      fill.style.transition = "width 2.5s linear";
-      setTimeout(() => { fill.style.width = "100%"; }, 50);
-    } else {
-      fill.style.width = "0%";
-    }
+    fill.style.width = i <= intraSlideIndex ? "100%" : "0%";
     bar.appendChild(fill);
     bars.appendChild(bar);
   });
 }
 
-function continueCarousel() {
-  clearInterval(carouselInterval);
-  carouselInterval = setInterval(() => {
-    const cData = COMPANY_DATA[presIndex - 16];
-    if (intraSlideIndex < cData.images.length - 1) {
-      intraSlideIndex++;
-      updateCarousel();
-    } else {
-      presIndex = Math.min(presIndex + 1, presSlides.length - 1);
-      renderSlide();
-    }
-  }, 2500);
-}
 
 function renderSlide() {
   document.getElementById("pres-img").src = presSlides[presIndex];
@@ -353,10 +365,8 @@ function renderSlide() {
     document.getElementById("interactive-overlay").style.display = "flex";
     intraSlideIndex = 0;
     updateCarousel();
-    continueCarousel();
   } else {
     document.getElementById("interactive-overlay").style.display = "none";
-    clearInterval(carouselInterval);
   }
 
   if (presIndex === 22) {
@@ -385,7 +395,6 @@ function startPresentation() {
 
 function exitPresentation() {
   document.getElementById("pres-overlay").classList.remove("active");
-  clearInterval(carouselInterval);
   document.getElementById("hero-video").pause();
   if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
 }
@@ -397,27 +406,25 @@ document.addEventListener("keydown", (e) => {
   
   if (presIndex >= 16 && presIndex <= 21) {
     const cData = COMPANY_DATA[presIndex - 16];
-    if (e.key === "ArrowRight" || e.key === "Space" || e.key === "Enter") {
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === "Space" || e.key === "Enter") {
       if (intraSlideIndex < cData.images.length - 1) {
         intraSlideIndex++;
         updateCarousel();
-        continueCarousel();
         return;
       }
-    } else if (e.key === "ArrowLeft") {
+    } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
       if (intraSlideIndex > 0) {
         intraSlideIndex--;
         updateCarousel();
-        continueCarousel();
         return;
       }
     }
   }
 
-  if (e.key === "ArrowRight" || e.key === "Space" || e.key === "Enter") {
+  if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === "Space" || e.key === "Enter") {
     presIndex = Math.min(presIndex + 1, presSlides.length - 1);
     renderSlide();
-  } else if (e.key === "ArrowLeft") {
+  } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
     presIndex = Math.max(presIndex - 1, 0);
     renderSlide();
   }
@@ -436,7 +443,6 @@ prOverlay.addEventListener("click", (e) => {
       if (intraSlideIndex < cData.images.length - 1) {
         intraSlideIndex++;
         updateCarousel();
-        continueCarousel();
       } else {
         presIndex = Math.min(presIndex + 1, presSlides.length - 1);
         renderSlide();
@@ -445,7 +451,6 @@ prOverlay.addEventListener("click", (e) => {
       if (intraSlideIndex > 0) {
         intraSlideIndex--;
         updateCarousel();
-        continueCarousel();
       } else {
         presIndex = Math.max(presIndex - 1, 0);
         renderSlide();
