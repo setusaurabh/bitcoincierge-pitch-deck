@@ -375,7 +375,7 @@ function slide04_Normies(pres) {
   // Bottom punchline
   s.addShape("rect", { x: 0, y: 4.95, w: 10, h: 0.68,
     fill: { color: C.black } });
-  s.addText("The other 1.4 billion Indians? They've never thought about Bitcoin. Not once.", {
+  s.addText("And for rest of 1.4 billion Indians - Bitcoin is still not a real thing!", {
     x: 0.5, y: 5.0, w: 9, h: 0.38,
     fontFace: F.serif, fontSize: 16, italic: true, color: C.onDark,
     align: "center", margin: 0,
@@ -391,7 +391,7 @@ function slide05a_AdsCompliance(pres) {
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
   addLabel(s, "P A I D   M A R K E T I N G   P R O B L E M");
 
-  s.addText("Social Media Giants don't love Bitcoin", {
+  s.addText("Performance Media is pain", {
     x: 0.5, y: 0.45, w: 9, h: 0.75,
     fontFace: F.serif, fontSize: 32, italic: true, color: C.onDark,
     align: "center", margin: 0,
@@ -573,7 +573,7 @@ function slide07_Limitations(pres) {
   var s = pres.addSlide();
   s.background = { color: C.cream };
   addLabel(s, "T H E   B I G   P R O B L E M");
-  addHeadline(s, "Checkl before you'd want to go this route!", { y: 0.52, h: 1.1, size: 30 });
+  addHeadline(s, "Before you jump this route!", { y: 0.52, h: 1.1, size: 30 });
 
   var items = [
     { emoji: "🧠", head: "Org time & energy", body: "Organising meetups, community management, 1-on-1 guidance, customer education — all diverts from building the product." },
