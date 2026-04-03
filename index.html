@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bitcoincierge Pitch Deck</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#eee;min-height:100vh}
+/* ── Top bar ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(10,10,10,.96);
+  border-bottom:1px solid #222;
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;gap:12px;
+  padding:0 20px;height:56px;
+}
+.brand{font-size:13px;font-weight:800;color:#F26522;letter-spacing:.05em;white-space:nowrap}
+.divider{width:1px;height:24px;background:#333;flex-shrink:0}
+.spacer{flex:1}
+.actions{display:flex;gap:8px;align-items:center}
+.btn{
+  padding:6px 13px;border-radius:5px;font-size:11px;font-weight:700;
+  cursor:pointer;border:none;text-decoration:none;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:background .15s;
+}
+.primary{background:#F26522;color:#fff}.primary:hover{background:#D54E10}
+.secondary{background:#1e1e1e;color:#bbb;border:1px solid #333}.secondary:hover{background:#282828}
+/* ── Slides ── */
+.main{padding:72px 24px 40px;max-width:980px;margin:0 auto}
+.slide-wrap{
+  margin-bottom:24px;border-radius:8px;overflow:hidden;
+  box-shadow:0 6px 32px rgba(0,0,0,.6);position:relative;
+  transition:transform .2s;
+}
+.slide-wrap:hover{transform:translateY(-2px)}
+.num{
+  position:absolute;top:10px;left:10px;
+  background:rgba(0,0,0,.65);color:#F26522;
+  font-size:10px;font-weight:800;padding:2px 8px;border-radius:3px;
+}
+.slide-wrap img{display:block;width:100%}
+/* ── Presentation Mode ── */
+#pres-overlay {
+  display:none;position:fixed;inset:0;background:#000;z-index:9999;
+  align-items:center;justify-content:center;user-select:none;
+}
+#pres-overlay.active { display:flex; cursor:none; }
+#pres-overlay.active.show-cursor { cursor:default; }
+#pres-img { width:100vw; height:100vh; object-fit:fill; }
+/* ── Toast ── */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);
+  background:#F26522;color:#fff;font-size:12px;font-weight:700;
+  padding:10px 20px;border-radius:6px;z-index:400;
+  transition:transform .3s ease;pointer-events:none;
+}
+#toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="brand">⚡ Bitcoincierge</span>
+  <div class="divider"></div>
+  <div class="spacer"></div>
+  <div class="actions">
+    <button id="startPresBtn" class="btn primary" style="background:#10B981" onclick="startPresentation()">▶ Present</button>
+    <a href="bitcoincierge_pitch_deck.pptx" download class="btn secondary">⬇ PPTX</a>
+    <a href="bitcoincierge_pitch_deck.pdf"  download class="btn secondary">⬇ PDF</a>
+  </div>
+</div>
+
+<div id="pres-overlay">
+  <img id="pres-img" src="" alt="Slide" />
+  <div id="interactive-overlay" style="display:none;position:absolute;inset:0;background:transparent;align-items:center;justify-content:flex-end;padding-right:5%;z-index:10001;pointer-events:none;">
+    <div id="carousel-card" style="position:relative;width:28vw;min-width:320px;max-width:440px;height:72vh;background:#000;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);">
+      <div id="carousel-bars" style="position:absolute;top:16px;left:16px;right:16px;display:flex;gap:4px;z-index:20;"></div>
+      <img id="carousel-img" src="" style="width:100%;height:100%;object-fit:contain;background:#000;" />
+      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);padding:24px;padding-top:60px;z-index:20;">
+        <p id="carousel-text" style="color:#fff;font-family:Georgia,serif;font-style:italic;font-size:20px;line-height:1.4;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.9);"></p>
+      </div>
+    </div>
+  </div>
+  <div id="hero-overlay" style="display:none;position:absolute;inset:0;background:#000;z-index:9500;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;">
+    <video id="hero-video" muted loop playsinline poster="website-assets/images/defaultMentor.webp" src="website-assets/Hero.mp4" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:blur(14px) brightness(0.35);transform:scale(1.15);"></video>
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.2);z-index:1;"></div>
+    <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;height:100%;padding:0 8%;gap:40px;">
+      <h1 style="color:#fff;font-family:serif;font-size:80px;line-height:1.2;margin:0;font-weight:normal;letter-spacing:-0.01em;text-shadow:0 0 40px rgba(0,0,0,0.5);">
+        Bring Your Bitcoin Brand<br/>
+        <em style="font-style:italic;">in Front of a Billion+ Indians</em>
+      </h1>
+      <p style="color:rgba(255,255,255,0.9);font-family:serif;font-style:italic;font-size:30px;line-height:1.5;margin:0 auto;max-width:960px;text-shadow:0 4px 12px rgba(0,0,0,0.9);">
+        The end-to-end concierge for Bitcoin brands — meetups, workshops, and brand-led activations across India &amp; Southeast Asia.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div class="main" id="slide-grid"></div>
+
+<script>
+const SLIDES = Array.from({length: 23}, (_, i) => `slides/slide-${String(i+1).padStart(2,'0')}.jpg`);
+
+// Build thumbnail grid
+const grid = document.getElementById('slide-grid');
+SLIDES.forEach((src, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'slide-wrap';
+  wrap.id = `s${i+1}`;
+  wrap.innerHTML = `<div class="num">${i+1}/${SLIDES.length}</div><img src="${src}" loading="lazy" />`;
+  grid.appendChild(wrap);
+});
+
+const COMPANY_DATA = [
+  { name: "Getbit",    storyTexts: ["Bitcoin-only exchange from India.","Workshops on buying Bitcoin into self-custody.","200+ attendees across meetups powered by Bitcoincierge."], images: ["website-assets/images/getbit/getbit-1.jpeg","website-assets/images/getbit/getbit-2.jpeg","website-assets/images/getbit/getbit-3.jpeg"] },
+  { name: "Zebpay",    storyTexts: ["India's leading crypto exchange.","Hosted meetups across Mumbai and Delhi.","Reaching hundreds of attendees."], images: ["website-assets/images/zebpay/zebpay-1.jpeg","website-assets/images/zebpay/zebpay-2.jpeg","website-assets/images/zebpay/zebpay-3.jpeg"] },
+  { name: "Jetking",   storyTexts: ["Reached thousands through in-person meetups and online streams.","Spreading their Bitcoin treasury story to potential investors."], images: ["website-assets/images/jetking/jetking-1.jpeg","website-assets/images/jetking/jetking-2.jpeg"] },
+  { name: "Ourpool",   storyTexts: ["3 meetups across Bangalore, Mumbai, and Delhi.","Partners onboarded to their Bitcoin Mining Academy.","Paid 30+ attendee mining cohort in Goa."], images: ["website-assets/images/ourpool/ourpool-1.jpeg","website-assets/images/ourpool/ourpool-2.jpeg","website-assets/images/ourpool/ourpool-3.jpeg"] },
+  { name: "Bitasha",   storyTexts: ["Sold 50+ BitAxe units through meetup and event activations alone.","Join us at our next workshop in Delhi."], images: ["website-assets/images/bitasha/bitasha-1.jpeg","website-assets/images/bitasha/bitasha-2.jpeg"] },
+  { name: "Cryobrick", storyTexts: ["First user activation through meetups in Goa.","Senior Bitcoiners onboarded as beta testers for v1 of the app."], images: ["website-assets/images/cryobrick/cryobrick-1.jpeg","website-assets/images/cryobrick/cryobrick-2.jpeg"] }
+];
+
+let presIndex = 0;
+let presSlides = [];
+let intraSlideIndex = 0;
+
+function updateCarousel() {
+  const cData = COMPANY_DATA[presIndex - 16];
+  if (!cData) return;
+  document.getElementById('carousel-img').src = cData.images[intraSlideIndex];
+  document.getElementById('carousel-text').textContent = cData.storyTexts[intraSlideIndex] || cData.storyTexts[0];
+  const bars = document.getElementById('carousel-bars');
+  bars.innerHTML = '';
+  cData.images.forEach((_, i) => {
+    const bar = document.createElement('div');
+    bar.style.cssText = 'flex:1;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;overflow:hidden;';
+    const fill = document.createElement('div');
+    fill.style.cssText = `height:100%;background:#fff;width:${i <= intraSlideIndex ? '100%' : '0%'};`;
+    bar.appendChild(fill);
+    bars.appendChild(bar);
+  });
+}
+
+function renderSlide() {
+  document.getElementById('pres-img').src = presSlides[presIndex];
+
+  if (presIndex >= 16 && presIndex <= 21) {
+    document.getElementById('interactive-overlay').style.display = 'flex';
+    intraSlideIndex = 0;
+    updateCarousel();
+  } else {
+    document.getElementById('interactive-overlay').style.display = 'none';
+  }
+
+  if (presIndex === 22) {
+    document.getElementById('hero-overlay').style.display = 'flex';
+    const v = document.getElementById('hero-video');
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  } else {
+    document.getElementById('hero-overlay').style.display = 'none';
+    document.getElementById('hero-video').pause();
+  }
+}
+
+function startPresentation() {
+  presSlides = SLIDES;
+  presIndex = 0;
+  const overlay = document.getElementById('pres-overlay');
+  overlay.classList.add('active');
+  if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+  renderSlide();
+}
+
+function exitPresentation() {
+  document.getElementById('pres-overlay').classList.remove('active');
+  document.getElementById('hero-video').pause();
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+}
+
+function goNext() {
+  if (presIndex >= 16 && presIndex <= 21) {
+    const cData = COMPANY_DATA[presIndex - 16];
+    if (intraSlideIndex < cData.images.length - 1) {
+      intraSlideIndex++;
+      updateCarousel();
+      return;
+    }
+  }
+  presIndex = Math.min(presIndex + 1, presSlides.length - 1);
+  renderSlide();
+}
+
+function goPrev() {
+  if (presIndex >= 16 && presIndex <= 21) {
+    if (intraSlideIndex > 0) {
+      intraSlideIndex--;
+      updateCarousel();
+      return;
+    }
+  }
+  presIndex = Math.max(presIndex - 1, 0);
+  renderSlide();
+}
+
+document.addEventListener('keydown', (e) => {
+  const overlay = document.getElementById('pres-overlay');
+  if (!overlay.classList.contains('active')) return;
+  if (e.key === 'Escape') return exitPresentation();
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'Space' || e.key === 'Enter') {
+    e.preventDefault();
+    goNext();
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    goPrev();
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) exitPresentation();
+});
+
+let hideCursorTimeout;
+const prOverlay = document.getElementById('pres-overlay');
+prOverlay.addEventListener('click', (e) => {
+  if (e.clientX > window.innerWidth / 2) goNext();
+  else goPrev();
+});
+
+prOverlay.addEventListener('mousemove', () => {
+  prOverlay.classList.add('show-cursor');
+  clearTimeout(hideCursorTimeout);
+  hideCursorTimeout = setTimeout(() => prOverlay.classList.remove('show-cursor'), 2000);
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
