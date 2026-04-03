@@ -429,7 +429,7 @@ function slide05b_SocialFatigue(pres) {
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
   addLabel(s, "O R G A N I C   M A R K E T I N G   P R O B L E M");
 
-  s.addText("AI is the new kool kid", {
+  s.addText("AI is the new cool kid", {
     x: 0.5, y: 0.45, w: 9, h: 0.75,
     fontFace: F.serif, fontSize: 36, italic: true, color: C.onDark,
     align: "center", margin: 0,
