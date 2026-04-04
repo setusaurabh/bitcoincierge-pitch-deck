@@ -189,10 +189,8 @@ const BRAND_COLORS = {
 function makeShadow() {
   return { type: "outer", color: "000000", blur: 6, offset: 2, angle: 135, opacity: 0.08 };
 }
-function addLabel(s, text) {
-  s.addText(text, { x: 0.5, y: 0.35, w: 9, h: 0.22,
-    fontFace: F.sans, fontSize: 8.5, bold: true, color: C.orange,
-    charSpacing: 3, align: "left", margin: 0 });
+function addLabel(_s, _text) {
+  // labels hidden
 }
 function addHeadline(s, text, opts) {
   var y    = (opts && opts.y     != null) ? opts.y     : 0.68;
@@ -337,12 +335,7 @@ function slide03_ExBitcoiners(pres) {
   s.addShape("rect", { x: 0, y: 4.6, w: 10, h: 1.0,
     fill: { color: C.black, transparency: 10 } });
 
-  // Label top
-  s.addText("THE EX-BITCOINER PROBLEM", {
-    x: 0.5, y: 0.12, w: 9, h: 0.28,
-    fontFace: F.sans, fontSize: 9, bold: true, color: C.orange,
-    charSpacing: 3, align: "center", margin: 0,
-  });
+  // Label top — hidden
 
   // Bottom punchline
   s.addText("Came for the bull. Went back during the bear.", {
@@ -365,12 +358,7 @@ function slide04_Normies(pres) {
     x: 1.8, y: 0.3, w: 6.4, h: 4.6,
   });
 
-  // Top label
-  s.addText("THE NORMIE PROBLEM", {
-    x: 0.5, y: 0.08, w: 9, h: 0.28,
-    fontFace: F.sans, fontSize: 9, bold: true, color: C.orange,
-    charSpacing: 3, align: "center", margin: 0,
-  });
+  // Top label — hidden
 
   // Bottom punchline
   s.addShape("rect", { x: 0, y: 4.95, w: 10, h: 0.68,
@@ -1096,9 +1084,9 @@ async function buildDeck(outputPath) {
   slide02_BossBattle(pres);
   slide03_ExBitcoiners(pres);
   slide04_Normies(pres);
-  slide05b_SocialFatigue(pres);
+  // slide05b_SocialFatigue — hidden (slide 5)
   slide05a_AdsCompliance(pres);
-  slide05c_Conferences(pres);
+  // slide05c_Conferences — hidden (slide 7)
   slide06_CurrentWorkarounds(pres);
   slide07_Limitations(pres);
   // slide08_ProblemStatement — hidden (slide 10)
@@ -1108,7 +1096,7 @@ async function buildDeck(outputPath) {
   slide12_IndiaMap(pres);
   slide13_AIFatigue(pres);
   slide14_MarketTraction(pres);
-  slide15_GTM(pres);
+  // slide15_GTM — hidden (slide 15)
   slide16_BusinessModel(pres);
   // slide17_ProofOfWork — hidden (slide 19)
 
