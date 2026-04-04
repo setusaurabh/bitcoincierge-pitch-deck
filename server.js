@@ -341,7 +341,7 @@ let presSlides = [];
 let intraSlideIndex = 0;
 
 function updateCarousel() {
-  const cData = COMPANY_DATA[presIndex - 16];
+  const cData = COMPANY_DATA[presIndex - 12];
   if (!cData) return;
   document.getElementById("carousel-img").src = cData.images[intraSlideIndex];
   document.getElementById("carousel-title").textContent = cData.name;
@@ -369,15 +369,9 @@ function updateCarousel() {
 function renderSlide() {
   document.getElementById("pres-img").src = presSlides[presIndex];
   
-  if (presIndex >= 16 && presIndex <= 21) {
-    document.getElementById("interactive-overlay").style.display = "flex";
-    intraSlideIndex = 0;
-    updateCarousel();
-  } else {
-    document.getElementById("interactive-overlay").style.display = "none";
-  }
+  document.getElementById("interactive-overlay").style.display = "none";
 
-  if (presIndex === 22) {
+  if (presIndex === 18) {
     document.getElementById("hero-overlay").style.display = "flex";
     const v = document.getElementById("hero-video");
     v.currentTime = 0;
@@ -411,23 +405,7 @@ document.addEventListener("keydown", (e) => {
   const overlay = document.getElementById("pres-overlay");
   if (!overlay.classList.contains("active")) return;
   if (e.key === "Escape") return exitPresentation();
-  
-  if (presIndex >= 16 && presIndex <= 21) {
-    const cData = COMPANY_DATA[presIndex - 16];
-    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === "Space" || e.key === "Enter") {
-      if (intraSlideIndex < cData.images.length - 1) {
-        intraSlideIndex++;
-        updateCarousel();
-        return;
-      }
-    } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
-      if (intraSlideIndex > 0) {
-        intraSlideIndex--;
-        updateCarousel();
-        return;
-      }
-    }
-  }
+
 
   if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === "Space" || e.key === "Enter") {
     presIndex = Math.min(presIndex + 1, presSlides.length - 1);
@@ -445,28 +423,6 @@ document.addEventListener("fullscreenchange", () => {
 let hideCursorTimeout;
 const prOverlay = document.getElementById("pres-overlay");
 prOverlay.addEventListener("click", (e) => {
-  if (presIndex >= 16 && presIndex <= 21) {
-    const cData = COMPANY_DATA[presIndex - 16];
-    if (e.clientX > window.innerWidth / 2) {
-      if (intraSlideIndex < cData.images.length - 1) {
-        intraSlideIndex++;
-        updateCarousel();
-      } else {
-        presIndex = Math.min(presIndex + 1, presSlides.length - 1);
-        renderSlide();
-      }
-    } else {
-      if (intraSlideIndex > 0) {
-        intraSlideIndex--;
-        updateCarousel();
-      } else {
-        presIndex = Math.max(presIndex - 1, 0);
-        renderSlide();
-      }
-    }
-    return;
-  }
-
   if (e.clientX > window.innerWidth / 2) {
     presIndex = Math.min(presIndex + 1, presSlides.length - 1);
   } else {
