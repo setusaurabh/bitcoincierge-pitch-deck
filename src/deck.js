@@ -529,7 +529,7 @@ function slide05a_AdsCompliance(pres) {
   s.addShape("rect", { x: 0, y: 0, w: 10, h: 0.07, fill: { color: C.orange } });
   addLabel(s, "P A I D   M A R K E T I N G   P R O B L E M");
 
-  s.addText("Performance Media is pain", {
+  s.addText("Digital Marketing is a Pain!", {
     x: 0.5,
     y: 0.45,
     w: 9,
@@ -542,50 +542,25 @@ function slide05a_AdsCompliance(pres) {
     margin: 0,
   });
 
-  // Three platform logos — no boxes, image + name + note
-  var PROC = path.join(__dirname, "..", "assets", "processed");
-  var platforms = [
-    {
-      img: path.join(PROC, "google.png"),
-      name: "Google",
-      note: "Requires certification and compliance",
-    },
-    {
-      img: path.join(PROC, "meta.png"),
-      name: "Meta / Facebook",
-      note: "Requires prior permission. Often denied.",
-    },
-    {
-      img: path.join(PROC, "x_logo.png"),
-      name: "Twitter / X",
-      note: "Requires certification.",
-    },
+  // Three content images — equal size, cover crop, label below
+  var ASSETS = path.join(__dirname, "..", "assets");
+  var imgW = 2.8, imgH = 1.58; // consistent 16:9 box
+  var panels = [
+    { img: path.join(ASSETS, "Niche Audience.jpg"),                  label: "Niche Audience" },
+    { img: path.join(ASSETS, "shadow-banned.png"),                   label: "Content faces shadowban" },
+    { img: path.join(ASSETS, "Certification_and_Compliance .jpg"),   label: "Digital Ads need compliance" },
   ];
-  platforms.forEach(function (p, i) {
-    var px = 0.55 + i * 3.1;
-    s.addImage({ path: p.img, x: px + 0.55, y: 1.55, w: 1.6, h: 1.6 });
-    s.addText(p.name, {
-      x: px,
-      y: 3.3,
-      w: 2.7,
-      h: 0.38,
-      fontFace: F.sans,
-      fontSize: 13,
-      bold: true,
-      color: C.onDark,
-      align: "center",
-      margin: 0,
+  panels.forEach(function(p, i) {
+    var px = 0.4 + i * 3.1;
+    s.addImage({
+      path: p.img,
+      x: px, y: 2.3, w: imgW, h: imgH,
+      sizing: { type: "cover", w: imgW, h: imgH },
     });
-    s.addText(p.note, {
-      x: px,
-      y: 3.72,
-      w: 2.7,
-      h: 0.65,
-      fontFace: F.sans,
-      fontSize: 10,
-      color: C.gray500,
-      align: "center",
-      margin: 0,
+    s.addText(p.label, {
+      x: px, y: 2.3 + imgH + 0.18, w: imgW, h: 0.45,
+      fontFace: F.sans, fontSize: 13, bold: true, color: C.onDark,
+      align: "center", margin: 0,
     });
   });
 }
@@ -781,7 +756,7 @@ function slide06_CurrentWorkarounds(pres) {
   var s = pres.addSlide();
   s.background = { color: C.cream };
   addLabel(s, "C U R R E N T   W O R K A R O U N D S");
-  addHeadline(s, "Smart founders are figuring", { y: 0.52, h: 1.1, size: 30 });
+  addHeadline(s, "IRL Events and Community FTW!", { y: 0.52, h: 1.1, size: 30 });
 
   var pairs = [
     {
@@ -852,7 +827,7 @@ function slide06_CurrentWorkarounds(pres) {
     });
 
     // Arrow down
-    s.addText("↓  powers  ↓", {
+    s.addText("↓↑", {
       x: cx + 0.15,
       y: 3.7,
       w: 2.7,
@@ -889,32 +864,27 @@ function slide07_Limitations(pres) {
   var s = pres.addSlide();
   s.background = { color: C.cream };
   addLabel(s, "T H E   B I G   P R O B L E M");
-  addHeadline(s, "Before you jump this route!", { y: 0.52, h: 1.1, size: 30 });
+  addHeadline(s, "But do you have the org bandwidth?", { y: 0.52, h: 1.1, size: 30 });
 
   var items = [
-    {
-      emoji: "🧠",
-      head: "Org time & energy",
-      body: "Organising meetups, community management, 1-on-1 guidance, customer education — all diverts from building the product.",
-    },
     {
       emoji: "🗺️",
       head: "Physical presence across cities",
       body: "Every city has its own nuance. Language, examples, culture — you can't copy-paste what works in Bangalore to Delhi.",
     },
     {
-      emoji: "⚙️",
-      head: "Operations & hiring",
-      body: "Booking venues, hiring educators, speakers, managing invites, attendance — a full-time job with no playbook.",
-    },
-    {
       emoji: "✈️",
-      head: "Travel & accommodation budget",
+      head: "Travel and Accommodation",
       body: "Team members flying in for every city activation. It burns cash fast with no direct attribution to revenue.",
     },
     {
-      emoji: "📊",
-      head: "End-to-end attribution",
+      emoji: "⚙️",
+      head: "Managing operations and hiring",
+      body: "Booking venues, hiring educators, speakers, managing invites, attendance — a full-time job with no playbook.",
+    },
+    {
+      emoji: "🧑‍🧑‍🧒‍🧒",
+      head: "Building pool of mentor and community",
       body: "Who came? Who touched the product? Who activated? Who's a warm lead? Without tracking, it's all vanity.",
     },
   ];
@@ -922,12 +892,8 @@ function slide07_Limitations(pres) {
   items.forEach(function (item, i) {
     var col = i % 2 === 0 ? 0 : 1;
     var row = Math.floor(i / 2);
-    if (i === 4) {
-      col = 0;
-      row = 2;
-    } // last item centered
-    var ix = i === 4 ? 0.5 : 0.5 + col * 4.78;
-    var iw = i === 4 ? 9.0 : 4.55;
+    var ix = 0.5 + col * 4.78;
+    var iw = 4.55;
     var iy = 1.85 + row * 1.05;
     s.addShape("rect", {
       x: ix,
@@ -1298,7 +1264,7 @@ function slide12_IndiaMap(pres) {
   });
 
   // Left panel legend
-  s.addText("7 Cities\nActive", {
+  s.addText("7 Cities", {
     x: 0.25,
     y: 2.4,
     w: 1.5,
@@ -1310,24 +1276,13 @@ function slide12_IndiaMap(pres) {
     align: "center",
     margin: 0,
   });
-  s.addText("Mentors present, community active,\nready to run activations", {
-    x: 0.1,
-    y: 3.4,
-    w: 1.7,
-    h: 0.8,
-    fontFace: F.sans,
-    fontSize: 8,
-    color: C.gray500,
-    align: "center",
-    margin: 0,
-  });
-  s.addText("Expanding to\nmore cities", {
-    x: 0.1,
-    y: 4.35,
-    w: 1.7,
-    h: 0.5,
-    fontFace: F.sans,
-    fontSize: 8,
+  s.addText("6 Brands", {
+    x: 8.25,
+    y: 2.4,
+    w: 1.5,
+    h: 0.9,
+    fontFace: F.serif,
+    fontSize: 28,
     italic: true,
     color: C.orange,
     align: "center",
@@ -1964,7 +1919,7 @@ function slide_CompanyProfile(pres, company) {
       w: company.img1_w, 
       h: company.img1_h
     });
-    s.addText("•  " + (company.text1 || ""), {
+    s.addText(company.text1 || "", {
       x: x1, y: 1.7 + company.img1_h + 0.15, w: company.img1_w, h: 1.2,
       fontFace: F.sans, fontSize: 16, color: C.onDark,
       align: "left", margin: 0, valign: "top"
@@ -1981,7 +1936,7 @@ function slide_CompanyProfile(pres, company) {
       w: company.img2_w, 
       h: company.img2_h
     });
-    s.addText("•  " + (company.text2 || ""), {
+    s.addText(company.text2 || "", {
       x: x2, y: 1.7 + company.img2_h + 0.15, w: company.img2_w, h: 1.2,
       fontFace: F.sans, fontSize: 16, color: C.onDark,
       align: "left", margin: 0, valign: "top"
@@ -2116,16 +2071,16 @@ async function buildDeck(outputPath) {
       subtitle: "India based Bitcoin hardware products lab",
       text1: "Meetup in Delhi sold 5+ Bitaxes",
       text2: "More attendees warmed to visit them at Bitplebs summit",
-      img1: path.join(ASSETS, "bitasha", "bitasha-1.jpeg"), img1_w: 2.8, img1_h: 2.1,
-      img2: path.join(ASSETS, "bitasha", "bitasha-2.jpeg"), img2_w: 2.4, img2_h: 3.2
+      img1: path.join(ASSETS, "bitasha", "bitasha-1.jpeg"), img1_w: 2.1, img1_h: 2.8,
+      img2: path.join(ASSETS, "bitasha", "bitasha-2.jpeg"), img2_w: 2.1, img2_h: 2.8
     },
     {
       name: "Cryobrick",
       subtitle: "Affordable inconspicuous Bitcoin wallet launch",
       text1: "First user activation through Goa meetup",
       text2: "Senior bitcoiners onboarded as beta testers for v1",
-      img1: path.join(ASSETS, "cryobrick", "cryobrick-1.jpeg"), img1_w: 2.4, img1_h: 3.2,
-      img2: path.join(ASSETS, "cryobrick", "cryobrick-2.jpeg"), img2_w: 2.4, img2_h: 3.2
+      img1: path.join(ASSETS, "cryobrick", "cryobrick-1.jpeg"), img1_w: 2.1, img1_h: 2.8,
+      img2: path.join(ASSETS, "cryobrick", "cryobrick-2.jpeg"), img2_w: 2.1, img2_h: 2.8
     },
   ];
   companies.forEach(function (c) {
