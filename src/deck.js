@@ -1086,6 +1086,7 @@ async function buildDeck(outputPath) {
   slide04_Normies(pres);
   // slide05b_SocialFatigue — hidden (slide 5)
   slide05a_AdsCompliance(pres);
+  slide13_AIFatigue(pres);          // moved from slide 11
   // slide05c_Conferences — hidden (slide 7)
   slide06_CurrentWorkarounds(pres);
   slide07_Limitations(pres);
@@ -1094,8 +1095,7 @@ async function buildDeck(outputPath) {
   slide10_Solution(pres);
   // slide11_WhyNow — hidden (slide 13)
   slide12_IndiaMap(pres);
-  slide13_AIFatigue(pres);
-  slide14_MarketTraction(pres);
+  // slide14_MarketTraction — hidden (slide 12)
   // slide15_GTM — hidden (slide 15)
   slide16_BusinessModel(pres);
   // slide17_ProofOfWork — hidden (slide 19)
